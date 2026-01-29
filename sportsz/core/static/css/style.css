@@ -1,0 +1,110 @@
+/* -------- Base -------- */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #fffdf7, #fff3e0);
+  color: #333;
+}
+header {
+  background: #ff9800;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* -------- Nav -------- */
+nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #ffe0b2;
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 2px; padding: 6px; border-top: 2px solid #ff9800;
+  z-index: 9;
+}
+@media (min-width: 640px) {
+  nav { grid-template-columns: repeat(12, 1fr); }
+}
+nav button {
+  background: #fff3e0; border: none; border-radius: 8px;
+  padding: .5rem; font-size: .85rem; font-weight: 700; color: #333;
+}
+nav button:active, nav button:hover { background: #ffd59b; }
+
+/* -------- Sections & Cards -------- */
+section { display: none; padding: 1rem; margin-bottom: 5.2rem; }
+section.active { display: block; }
+.card {
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,.08);
+  padding: 1rem; margin: 1rem 0;
+}
+.card h3 { margin: 0 0 .6rem; color: #ff9800; }
+.row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.row input, .row select, input, select {
+  padding: .55rem .7rem; border: 1px solid #ddd; border-radius: 8px; flex: 1;
+}
+button {
+  padding: .6rem 1rem; border-radius: 8px; background: #ff9800; color: #fff;
+  border: none; font-weight: 700; cursor: pointer; transition: .25s;
+}
+button:hover { background: #e68900; }
+
+/* -------- Home -------- */
+.quick-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.progress-wrap { margin-top: .6rem; display: flex; align-items: center; gap: .6rem; }
+.role-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+.role-card { display: flex; gap: .6rem; align-items: center; background: #fafafa; border-radius: 10px; padding: .6rem; }
+.role-thumb { width: 36px; height: 36px; border-radius: 10px; background: #ffedd5; display: grid; place-items: center; font-size: 1.1rem; }
+
+/* -------- Video Views -------- */
+#runVideo, #eyeVideo {
+  width: 100%; max-height: 240px; border-radius: 12px;
+  border: 2px solid #ff9800; background: #000; object-fit: cover; margin-bottom: .5rem;
+}
+#liveTimer { font-weight: 800; margin-left: auto; }
+
+/* -------- Results / Text -------- */
+#camSpeedResult, #speedResult, #eyeResult { font-weight: 700; margin-top: .4rem; }
+#camSpeedResult, #speedResult { color: #2e7d32; }
+
+/* -------- Eligibility -------- */
+.eligibility { font-size: .95rem; line-height: 1.4; }
+.eligibility .tag { background: #fff3e0; padding: .2rem .5rem; border-radius: 999px; margin-right: .3rem; display: inline-block; }
+
+/* -------- History -------- */
+.badges { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .4rem; }
+.badge { background: #fff7e6; color: #d97706; padding: .3rem .5rem; border-radius: 999px; font-size: .85rem; font-weight: 700; }
+.streak { margin-top: .4rem; font-weight: 700; }
+
+/* -------- Video Shots -------- */
+#videoFeed { margin-top: 1rem; display: grid; gap: .8rem; }
+.video-card { background: #fafafa; border-radius: 12px; box-shadow: 0 3px 6px rgba(0,0,0,.08); padding: .8rem; }
+.video-card video { width: 100%; border-radius: 10px; margin-bottom: .4rem; }
+.video-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+
+/* -------- Communities -------- */
+#communityFeed { display: grid; gap: .8rem; }
+.talent-card { background: #fafafa; border-radius: 12px; padding: .8rem; display: grid; gap: .4rem; }
+.talent-head { display: flex; align-items: center; gap: .5rem; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: #ffe0b2; display: grid; place-items: center; }
+
+/* -------- News -------- */
+.news-list { display: grid; gap: .6rem; }
+.news-card { background: #fafafa; border-radius: 10px; padding: .8rem; }
+.news-card small { color: #666; }
+
+/* -------- Meta AI -------- */
+.ai-chat { height: 220px; overflow: auto; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: .6rem; display: grid; gap: .4rem; }
+.msg { padding: .45rem .6rem; border-radius: 10px; max-width: 85%; }
+.msg.me { background: #e0f2fe; justify-self: end; }
+.msg.ai { background: #fff7e6; }
+
+/* -------- Dashboard -------- */
+#athleteTable table { width: 100%; border-collapse: collapse; }
+#athleteTable th, #athleteTable td { border-bottom: 1px solid #eee; padding: .5rem; text-align: left; }
+.insight { margin-top: .6rem; padding: .6rem; background: #eef7ff; border-left: 3px solid #60a5fa; border-radius: 8px; }
+
+/* -------- Confetti -------- */
+.confetti { position: fixed; inset: 0; pointer-events: none; }

@@ -1,0 +1,257 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SportsZ</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Welcome{{ruchita}}</h1>
+
+
+  <header>🏅 SportsZ</header>
+
+  <!-- HOME -->
+  <section id="home" class="active">
+    <div class="card">
+      <h3>Welcome to SportsZ</h3>
+      <p>Track, improve, and celebrate your performance.</p>
+      <div class="quick-actions">
+        <button onclick="showSection('performance')">Start Test</button>
+        <button onclick="showSection('videoshots')">Upload Shot</button>
+        <button onclick="showSection('eligibility')">Check Eligibility</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>My Dream Board</h3>
+      <input type="text" id="dreamGoal" placeholder="Enter your dream goal (e.g., Play for India)"/>
+      <button onclick="saveDream()">Save Goal</button>
+      <p id="dreamDisplay"></p>
+      <div class="progress-wrap">
+        <label>Weekly Progress</label>
+        <input type="range" id="dreamProgress" min="0" max="100" value="20" oninput="updateDreamProgress()"/>
+        <span id="dreamProgressVal">20%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Motivational Quote</h3>
+      <p id="quoteDisplay">“Champions keep playing until they get it right.”</p>
+      <button onclick="newQuote()">New Quote</button>
+    </div>
+
+    <div class="card">
+      <h3>Role Model Stories (1-min)</h3>
+      <div class="role-grid">
+        <div class="role-card">
+          <div class="role-thumb">🎖️</div>
+          <div>
+            <b>Milkha Singh</b><br><small>From humble beginnings to “The Flying Sikh”.</small>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-thumb">🥊</div>
+          <div>
+            <b>Mary Kom</b><br><small>Five-time world champion boxer.</small>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-thumb">🥇</div>
+          <div>
+            <b>Neeraj Chopra</b><br><small>Olympic gold in javelin — perseverance pays.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION -->
+  <section id="registration">
+    <div class="card">
+      <h3>👤 Athlete Registration</h3>
+      <input type="text" placeholder="Name" id="name"/>
+      <input type="number" placeholder="Age" id="age"/>
+      <input type="text" placeholder="Gender" id="gender"/>
+      <input type="text" placeholder="Location" id="location"/>
+      <input type="text" placeholder="Sport Interest" id="sport"/>
+      <label class="consent">
+        <input type="checkbox" id="consentChk"/> I agree to data collection and analysis for sports evaluation.
+      </label>
+      <button onclick="registerUser()">Register</button>
+      <p id="registerMsg"></p>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section id="performance">
+    <div class="card">
+      <h3>Running Speed (Camera)</h3>
+      <video id="runVideo" autoplay playsinline></video>
+      <div class="row">
+        <label>Distance (m)</label>
+        <input type="number" id="camDistance" placeholder="e.g. 100"/>
+      </div>
+      <div class="row">
+        <button onclick="startRunTimer()">🏁 Start</button>
+        <button onclick="endRunTimer()">⏱ End</button>
+        <span id="liveTimer">0.00s</span>
+      </div>
+      <p id="camSpeedResult"></p>
+    </div>
+
+    <div class="card">
+      <h3>Manual Speed Calculator</h3>
+      <div class="row">
+        <label>Distance (m)</label><input type="number" id="runDistance" placeholder="100"/>
+      </div>
+      <div class="row">
+        <label>Time (s)</label><input type="number" id="runTime" placeholder="12.5"/>
+      </div>
+      <button onclick="calculateSpeed()">Calculate</button>
+      <p id="speedResult"></p>
+    </div>
+
+    <div class="card">
+      <h3>Archery Eye Alignment (Demo)</h3>
+      <video id="eyeVideo" autoplay playsinline></video>
+      <button onclick="startEyeDetection()">Start Eye Detection</button>
+      <p id="eyeResult">👁 Keep your eye steady and centered.</p>
+    </div>
+  </section>
+
+  <!-- ELIGIBILITY -->
+  <section id="eligibility">
+    <div class="card">
+      <h3>Sports Eligibility & Diet</h3>
+      <select id="sportSelect" onchange="showEligibility()">
+        <option value="">Select a sport</option>
+        <option value="basketball">Basketball</option>
+        <option value="boxing">Boxing</option>
+        <option value="archery">Archery</option>
+        <option value="marathon">Marathon</option>
+        <option value="wrestling">Wrestling</option>
+        <option value="football">Football</option>
+        <option value="badminton">Badminton</option>
+        <option value="cricket">Cricket</option>
+      </select>
+      <div id="eligibilityInfo" class="eligibility"></div>
+    </div>
+  </section>
+
+  <!-- HISTORY + GAMIFICATION -->
+  <section id="history">
+    <div class="card">
+      <h3>Performance History</h3>
+      <canvas id="historyChart" height="120"></canvas>
+      <div id="badges" class="badges"></div>
+      <div id="streak" class="streak"></div>
+      <button onclick="exportHistory()">Export CSV</button>
+    </div>
+  </section>
+
+  <!-- VIDEO SHOTS (UGC) -->
+  <section id="videoshots">
+    <div class="card">
+      <h3>🎥 Sports Video Shots</h3>
+      <input type="file" id="videoUpload" accept="video/*"/>
+      <button onclick="uploadVideo()">Upload Video</button>
+      <small>Duplicate/too-short videos are blocked (cheat/anomaly check demo).</small>
+      <div id="videoFeed"></div>
+    </div>
+  </section>
+
+  <!-- COMMUNITIES -->
+  <section id="communities">
+    <div class="card">
+      <h3>Communities – Showcase Talent</h3>
+      <div class="row">
+        <input type="text" id="talentName" placeholder="Athlete name"/>
+        <input type="text" id="talentTitle" placeholder="Achievement title"/>
+        <button onclick="postTalent()">Post</button>
+      </div>
+      <div id="communityFeed"></div>
+    </div>
+  </section>
+
+  <!-- NEWS / UPDATES -->
+  <section id="news">
+    <div class="card">
+      <h3>Sports Updates & News</h3>
+      <div id="newsList" class="news-list">
+        <!-- Placeholder cards; integrate live API later -->
+      </div>
+    </div>
+  </section>
+
+  <!-- META AI (in-app assistant) -->
+  <section id="metaai">
+    <div class="card">
+      <h3>Meta AI Coach</h3>
+      <div id="aiChat" class="ai-chat"></div>
+      <div class="row">
+        <input type="text" id="aiInput" placeholder="Ask: How to improve my 100m time?"/>
+        <button onclick="aiRespond()">Send</button>
+      </div>
+      <small>Rule-based demo. Can be upgraded to real LLM later.</small>
+    </div>
+  </section>
+
+  <!-- DASHBOARD (EVALUATORS) -->
+  <section id="dashboard">
+    <div class="card">
+      <h3>Coach / Evaluator Dashboard</h3>
+      <div class="row">
+        <input type="text" id="filterName" placeholder="Filter by name"/>
+        <select id="filterSport">
+          <option value="">All sports</option>
+        </select>
+        <button onclick="applyFilters()">Filter</button>
+      </div>
+      <div id="athleteTable"></div>
+      <div class="insight" id="insightBox"></div>
+    </div>
+  </section>
+
+  <!-- REPORTS -->
+  <section id="reports">
+    <div class="card">
+      <h3>Reports & Analytics</h3>
+      <button onclick="generateReport()">Download Performance Report (CSV)</button>
+      <p>Insight example: <em>Top 10% athletes by speed</em> shown in dashboard.</p>
+    </div>
+  </section>
+
+  <!-- HELP -->
+  <section id="help">
+    <div class="card">
+      <h3>Help & FAQs</h3>
+      <details><summary>How do I measure speed?</summary><p>Use Performance → Running Speed. Set distance → Start → End.</p></details>
+      <details><summary>Why eye detection says “demo”?</summary><p>This prototype uses a placeholder. We can integrate face/eye landmarks (TensorFlow.js/MediaPipe).</p></details>
+      <details><summary>Is my data safe?</summary><p>Uploads are encrypted client-side in this demo before sending.</p></details>
+      <button onclick="triggerNotification()">🔔 Test Reminder</button>
+    </div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('registration')">Register</button>
+    <button onclick="showSection('performance')">Performance</button>
+    <button onclick="showSection('eligibility')">Eligibility</button>
+    <button onclick="showSection('history')">History</button>
+    <button onclick="showSection('videoshots')">Shots</button>
+    <button onclick="showSection('communities')">Communities</button>
+    <button onclick="showSection('news')">News</button>
+    <button onclick="showSection('metaai')">Meta AI</button>
+    <button onclick="showSection('dashboard')">Dashboard</button>
+    <button onclick="showSection('reports')">Reports</button>
+    <button onclick="showSection('help')">Help</button>
+  </nav>
+
+  <canvas class="confetti" id="confettiCanvas"></canvas>
+  <script src="{% static 'js/script.js'%}"></script>
+</body>
+</html>
